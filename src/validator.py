@@ -11,14 +11,23 @@ class Validator:
             "<MINUS_SIGN>",
             "<MULTIPLICATION_SIGN>",
             "<DIVISION_SIGN>",
-            "<DOT>",
-            "<EQUALS_SIGN>"
+            "<EQUALS_SIGN>",
         ]
+        self.validators = [Validator.is_number]
+
+    def validate_lexem(self, lexem: str) -> dict:
+        return list(
+            filter(
+                lambda x: x.keys != None,
+                [token_checker(lexem) for token_checker in self.validators],
+            )
+        ).pop()
+
+    def validate_lexems(self, lexem_list: list) -> list:
+        return [self.validate_lexem(lexem) for lexem in lexem_list]
 
     @classmethod
-    def validate_lexem(lexem: str) -> bool:
-        pass
-
-    @classmethod
-    def validate_lexems(lexem_list: list) -> list:
-        pass
+    def is_number(cls, value):
+        number_pattern = re.compile("([0-9]+|[0-9]+.[0-9]+)")
+        check = lambda x: {x: "<NUMBER>"} if number_pattern.match(x) else {x: None}
+        return check(value)
