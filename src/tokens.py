@@ -11,7 +11,7 @@ class Tokens:
         token_list = []
         validator = Validator()
         token = ""
-        for c in self.input:
+        for c in input:
             token_type = validator.validate_lexem(c)
             if token_type[c] == "<NUMBER>" or c == ".":
                 token += c
