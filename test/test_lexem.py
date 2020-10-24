@@ -3,8 +3,10 @@ import sys
 import pytest
 
 # python won't let me import Validator if I don't add the path to it
-sys.path.append(".")
-from src.validator import Validator
+sys.path.append(
+    "calculator_lexical_analyzer/src"
+)
+from validator import Validator
 
 
 def test_number_lexem():
