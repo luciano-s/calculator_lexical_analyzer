@@ -39,15 +39,15 @@ class Validator:
 
     @classmethod
     def is_number(cls, value: str) -> dict:
-        number_pattern = re.compile("([0-9]+|[0-9]+.[0-9]+)")
-        check = lambda x: {x: "<NUMBER>"} if number_pattern.match(x) else {x: None}
+        number_pattern = re.compile("(([0-9]+)|([0-9]+.[0-9]+))")
+        check = lambda x: {x: "<NUMBER>"} if number_pattern.fullmatch(x) else {x: None}
         return check(value)
 
     @classmethod
     def is_plus_sign(cls, value: str) -> dict:
         plus_sign_pattern = re.compile("[+]")
         check = (
-            lambda x: {x: "<PLUS_SIGN>"} if plus_sign_pattern.match(x) else {x: None}
+            lambda x: {x: "<PLUS_SIGN>"} if plus_sign_pattern.fullmatch(x) else {x: None}
         )
         return check(value)
 
@@ -55,7 +55,7 @@ class Validator:
     def is_minus_sign(cls, value: str) -> dict:
         plus_sign_pattern = re.compile("-")
         check = (
-            lambda x: {x: "<MINUS_SIGN>"} if plus_sign_pattern.match(x) else {x: None}
+            lambda x: {x: "<MINUS_SIGN>"} if plus_sign_pattern.fullmatch(x) else {x: None}
         )
         return check(value)
 
@@ -64,7 +64,7 @@ class Validator:
         multiplication_sign_pattern = re.compile("[*]")
         check = (
             lambda x: {x: "<MULTIPLICATION_SIGN>"}
-            if multiplication_sign_pattern.match(x)
+            if multiplication_sign_pattern.fullmatch(x)
             else {x: None}
         )
         return check(value)
@@ -74,7 +74,7 @@ class Validator:
         division_sign_pattern = re.compile("/")
         check = (
             lambda x: {x: "<DIVISION_SIGN>"}
-            if division_sign_pattern.match(x)
+            if division_sign_pattern.fullmatch(x)
             else {x: None}
         )
         return check(value)
@@ -84,7 +84,7 @@ class Validator:
         equals_sign_pattern = re.compile("=")
         check = (
             lambda x: {x: "<EQUALS_SIGN>"}
-            if equals_sign_pattern.match(x)
+            if equals_sign_pattern.fullmatch(x)
             else {x: None}
         )
         return check(value)
