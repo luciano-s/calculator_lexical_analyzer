@@ -20,6 +20,8 @@ class Validator:
             Validator.is_multiplication_sign,
             Validator.is_division_sign,
             Validator.is_equals_sign,
+            Validator.is_open_parenthesis,
+            Validator.is_close_parenthesis
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -40,7 +42,10 @@ class Validator:
     @classmethod
     def is_number(cls, value: str) -> dict:
         number_pattern = re.compile("(([0-9]+)|([0-9]+.[0-9]+))")
-        check = lambda x: {x: "<NUMBER>"} if number_pattern.fullmatch(x) else {x: None}
+        check = (
+            lambda x: {x: "<NUMBER>"} if number_pattern.fullmatch(x) else {x: None}
+        )
+
         return check(value)
 
     @classmethod
@@ -85,6 +90,26 @@ class Validator:
         check = (
             lambda x: {x: "<EQUALS_SIGN>"}
             if equals_sign_pattern.fullmatch(x)
+            else {x: None}
+        )
+        return check(value)
+
+    @classmethod
+    def is_open_parenthesis(cls, value: str) -> dict:
+        open_parenthesis_pattern = re.compile("\(")
+        check = (
+            lambda x: {x: "<OPEN_PARENTHESIS>"}
+            if open_parenthesis_pattern.match(x)
+            else {x: None}
+        )
+        return check(value)
+
+    @classmethod
+    def is_close_parenthesis(cls, value: str) -> dict:
+        close_parenthesis_pattern = re.compile("\)")
+        check = (
+            lambda x: {x: "<CLOSE_PARENTHESIS>"}
+            if close_parenthesis_pattern.match(x)
             else {x: None}
         )
         return check(value)
