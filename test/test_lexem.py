@@ -3,17 +3,15 @@ import sys
 import pytest
 
 # python won't let me import Validator if I don't add the path to it
-sys.path.append(
-    "...path.../calculator_lexical_analyzer/src"
-)
-from validator import Validator
+sys.path.append(".")
+from src.validator import Validator
 
 
 def test_number_lexem():
     """
     Test if it can validate a number
     """
-    lexems = ["1.97", "1", "1.0", "37", "0.58"]
+    lexems = ["1.97", "1", "1.0", "37", "0.58", ".5", "1.", "."]
     validator = Validator()
     assert validator.validate_lexems(lexems) == [
         {"1.97": "<NUMBER>"},
@@ -21,6 +19,9 @@ def test_number_lexem():
         {"1.0": "<NUMBER>"},
         {"37": "<NUMBER>"},
         {"0.58": "<NUMBER>"},
+        {".5": None},
+        {"1.": None},
+        {".": None},
     ]
 
 
