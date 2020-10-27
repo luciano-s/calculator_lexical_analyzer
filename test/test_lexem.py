@@ -1,8 +1,7 @@
 import re
 import pytest
 
-from ..src.validator import Validator
-
+from src.validator import Validator
 
 def test_number_lexem():
     """
