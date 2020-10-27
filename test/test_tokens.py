@@ -1,11 +1,8 @@
-from tokens import Tokens
+from .. src.tokens import Tokens
 import re
 import sys
 import pytest
 
-sys.path.append(
-    "...path.../calculator_lexical_analyzer/src"
-)
 
 
 def test_split_tokens():
@@ -31,6 +28,6 @@ def test_split_tokens():
             {'(': '<OPEN_PARENTHESIS>'},
             {')': '<CLOSE_PARENTHESIS>'}
         ], [
-            [{'.': None}]
+            {'.': None}
         ]
     ]

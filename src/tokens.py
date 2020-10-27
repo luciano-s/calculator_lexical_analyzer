@@ -1,13 +1,10 @@
-import sys
-sys.path.append(
-    "calculator_lexical_analyzer/src"
-)
-from validator import Validator
+
+from src.validator import Validator
 
 
 class Tokens:
 
-    def split_tokens(self, input: str) -> list:
+    def split_token(self, input: str) -> list:
         token_list = []
         validator = Validator()
         token = ""
@@ -16,7 +13,6 @@ class Tokens:
             if token_type[c] == "<NUMBER>" or c == ".":
                 token += c
             else:
-                print(token)
                 if token != "":
                     token_list.append(validator.validate_lexem(token))
                     token = ""
@@ -27,4 +23,4 @@ class Tokens:
         return token_list
 
     def split_tokens(self, inputs: list) -> list:
-        return [self.split_tokens(in_) for in_ in inputs]
+        return [self.split_token(in_) for in_ in inputs]
