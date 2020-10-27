@@ -3,31 +3,40 @@ from src.validator import Validator
 
 
 class Tokens:
+    def __init__(self):
+        self.validator = Validator()
+
+    def verify_composite(self, in_, col, token_list):
+        if in_ != "":
+            col_i = col-len(in_)
+            token_list.append(
+                (col_i, col, self.validator.validate_lexem(in_)))
+            in_ = ""
+        return in_
 
     def split_token(self, input: str) -> list:
         token_list = []
-        validator = Validator()
-        token = ""
+        number = ""
+        error = ""
         col = 1
         for c in input:
-
-            token_type = validator.validate_lexem(c)
+            token_type = self.validator.validate_lexem(c)
             if token_type[c] == "<NUMBER>" or c == ".":
-                token += c
+                number += c
+                error = self.verify_composite(error, col, token_list)
             elif token_type[c] is None and c != " ":
-                token += c
+                error += c
+                number = self.verify_composite(number, col, token_list)
             else:
-                if token != "":
-                    col_i = col-len(token)
-                    token_list.append(
-                        (col_i, col, validator.validate_lexem(token)))
-                    token = ""
+                number = self.verify_composite(number, col, token_list)
+                error = self.verify_composite(error, col, token_list)
                 if c != " ":
                     token_list.append((col, col+1, token_type))
             col += 1
-        if token != "":
-            col_i = col-len(token)
-            token_list.append((col_i, col, validator.validate_lexem(token)))
+
+        number = self.verify_composite(number, col, token_list)
+        error = self.verify_composite(error, col, token_list)
+
         return token_list
 
     def split_tokens(self, inputs: list) -> list:

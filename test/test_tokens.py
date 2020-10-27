@@ -8,7 +8,7 @@ def test_split_tokens():
     """
     Test if it can validate a entire string
     """
-    inputs = ["3+(2*12.01)", "2/3", "()", "."]
+    inputs = ["3+(2*12.01)", "2/3", "()", ".", "1aaa", "b##+1"]
     tokens = Tokens()
     tks = tokens.split_tokens(inputs)
     new_tks = []
@@ -33,5 +33,12 @@ def test_split_tokens():
             {')': '<CLOSE_PARENTHESIS>'}
         ], [
             {'.': None}
+        ], [
+            {'1': '<NUMBER>'},
+            {'aaa': None}
+        ], [
+            {'b##': None},
+            {'+': '<PLUS_SIGN>'},
+            {'1': '<NUMBER>'},
         ]
     ]
