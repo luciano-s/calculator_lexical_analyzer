@@ -10,8 +10,11 @@ class Tokens:
         token = ""
         col = 1
         for c in input:
+
             token_type = validator.validate_lexem(c)
             if token_type[c] == "<NUMBER>" or c == ".":
+                token += c
+            elif token_type[c] is None and c != " ":
                 token += c
             else:
                 if token != "":
@@ -19,12 +22,12 @@ class Tokens:
                     token_list.append(
                         (col_i, col, validator.validate_lexem(token)))
                     token = ""
-                token_list.append((col, col+1, token_type))
+                if c != " ":
+                    token_list.append((col, col+1, token_type))
             col += 1
         if token != "":
             col_i = col-len(token)
             token_list.append((col_i, col, validator.validate_lexem(token)))
-        # print(token_list)
         return token_list
 
     def split_tokens(self, inputs: list) -> list:

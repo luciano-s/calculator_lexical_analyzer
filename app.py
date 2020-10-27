@@ -24,7 +24,6 @@ def index():
                 *zip(*tokens.split_token(exp))
             )))
             line += 1
-        print(validated_lexems)
         return render_template("index.html", input=expression, validated_lexems=validated_lexems)
 
 
