@@ -12,26 +12,19 @@ def index():
     if request.method == 'GET':
         return render_template("index.html")
     elif request.method == 'POST':
-        expression = request.form['expression']
+        expression = request.form['expression'].replace("\r", "")
+        expressions = list(filter(None, expression.split("\n")))
         tokens = Tokens()
-        validated_lexems = list(map(
-            lambda d: (
-            list(d.keys()).pop(), list(d.values()).pop(), 'Yes' if list(d.values()).pop() is not None else 'No'),
-            tokens.split_token(expression.replace(' ', ''))
-        ))
-        return render_template("index.html", validated_lexems=validated_lexems)
-
-@app.route("/valid-lexems/<expression>")
-def valid_lexems(expression=None):
-    if expression == None:
-        return render_template("error.html")
-    tokens = Tokens()
-    validated_lexems = list(map(
-        lambda d: (list(d.keys()).pop(), list(d.values()).pop(), 'Yes'  if list(d.values()).pop() is not None else 'No'),
-        tokens.split_token(expression)
-    ))
-
-    return render_template("table.html", validated_lexems=validated_lexems)
+        validated_lexems = []
+        line = 1
+        for exp in expressions:
+            validated_lexems.extend(list(map(
+                lambda ci, ce, d: (
+                    list(d.keys()).pop(), list(d.values()).pop(), 'Yes' if list(d.values()).pop() is not None else 'No', line, str(ci)+"-"+str(ce)),
+                *zip(*tokens.split_token(exp))
+            )))
+            line += 1
+        return render_template("index.html", input=expression, validated_lexems=validated_lexems)
 
 
 if __name__ == '__main__':
