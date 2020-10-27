@@ -13,7 +13,7 @@ def index():
         return render_template("index.html")
     elif request.method == 'POST':
         expression = request.form['expression'].replace("\r", "")
-        expressions = expression.split("\n")
+        expressions = list(filter(None, expression.split("\n")))
         tokens = Tokens()
         validated_lexems = []
         line = 1

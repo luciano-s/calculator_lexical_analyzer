@@ -16,6 +16,11 @@
 <body>
   <div class="container">
     <div class="row justify-content-md-center">
+      <div class="pb-2 mt-4 mb-2 border-bottom">
+        <h1>Calculator Lexical Analyzer</h1>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
       <div class="col col-lg-12">
         <form action="/" method="POST">
           <div class="input-group mb-3">
@@ -24,8 +29,6 @@
           </div>
           <div class="input-group mb-6">
             <input type="file" class="form-control" id="inputfile">
-            <!-- <input type="text" name="expression" class="form-control" placeholder="Expressão" -->
-            <!-- aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit">Confirmar</button>
             </div>
@@ -57,7 +60,6 @@
               <td>{{ lexem[2] }}</td>
               <td>{{ lexem[3] }}</td>
               <td>{{ lexem[4] }}</td>
-              <td></td>
             </tr>
             {%- endfor %}
           </tbody>
