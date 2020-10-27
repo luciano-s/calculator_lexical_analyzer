@@ -6,13 +6,36 @@
     </head>
     
     <body>
+        <form action="/" method="POST">
           <div class="input-group mb-6">
-            <input type="text" class="form-control" placeholder="Expressão" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <input type="text" name="expression" class="form-control" placeholder="Expressão" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">Button</button>
+              <button class="btn btn-outline-secondary" type="submit">Confirmar</button>
             </div>
           </div>
-          
-         
+        </form>
+                 <table class="table table-hover">
+            <thead>
+              <tr>
+
+                <th scope="col">Lexema</th>
+                <th scope="col">Token</th>
+                <th scope="col">Válido</th>
+              </tr>
+            </thead>
+            <tbody>
+            {%- for lexem in validated_lexems %}
+
+              <tr>
+
+                <td>{{ lexem[0] }}</td>
+                <td>{{ lexem[1] }}</td>
+
+                <td>{{ lexem[2] }}</td>
+              </tr>
+            {%- endfor %}
+            </tbody>
+          </table>
     </body>
+
 </html>

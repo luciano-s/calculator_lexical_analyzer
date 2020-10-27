@@ -13,7 +13,6 @@ class Tokens:
             if token_type[c] == "<NUMBER>" or c == ".":
                 token += c
             else:
-                print(token)
                 if token != "":
                     token_list.append(validator.validate_lexem(token))
                     token = ""
